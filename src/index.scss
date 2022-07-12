@@ -1,0 +1,45 @@
+body {
+  font-family: 'Roboto', "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to right, #F27121, #E94057, #8A2387);
+}
+
+.site-page-header.ant-page-header-ghost {
+  background-color: #FFF5EE;
+  border: 1px solid rgb(186, 193, 203);
+  margin-bottom: 10px;
+}
+
+.ant-page-header-heading-left
+.ant-page-header-back {
+  font-size: 24px;
+}
+
+.movie {
+  text-align: center;
+  justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 1em;
+  margin-bottom: 10px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.main
+.ant-pagination {
+  margin: 10px;
+}
+
+.ant-card-body
+.ant-card-meta {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
