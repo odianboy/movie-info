@@ -1,55 +1,81 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import axios from 'axios';
 import { Movie } from '../shared/api/typicode/models';
 import { Card, Rate, Pagination} from 'antd';
+import { Link } from 'react-router-dom';
 
-const { Meta } = Card;
-
-export const MovieList: React.FC = () => {
-    // const url = 'https://kinobd.ru/api/films';
+export const MovieList: FC = () => {
     const url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top';
-    const token = '0e4248f0-c3dd-4f34-b12d-00cfa5c4c9c4';
-    const [movie, setMovie] = useState<Movie[]>([]);
+    const token = '2397a418-8907-45e2-8046-4276a4e107c2';
+
+    const { Meta } = Card;
+
+    const [movies, setMovie] = useState<Movie[]>([]);
+    const [page, setPage] = useState<number>(1);
+    const [pageCount, setPageCount] = useState<number>(1);
+
+    const getMovies = () => {
+        axios.get(url, {
+            headers: {
+                'X-API-KEY': token,
+            },
+            params: {
+                page: page,
+            }
+        })
+        .then(res => {
+            const data = res.data.films;
+            const countPage = res.data.pagesCount;
+            console.log('Movie', movies);
+            setMovie(data);
+            setPageCount(countPage);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleChange = (page: number) => {
+        setPage(page);
+    }
 
     useEffect(() => {
-
-        function getMovie(page=1) {
-            axios.get(url, {
-                headers: {
-                    'X-API-KEY': token,
-                },
-                params: {
-                    page: page,
-                }
-            })
-            .then(res => {
-                const data = res.data.films;
-                console.log('Movie', movie);
-                setMovie(data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
-        getMovie();
-        }, []);
+        getMovies();
+    }, [page]);
 
     return (
-        <div className='main'>
+        <div className='main-list'>
             <div className='movie'>
-                {movie.map((film: Movie) => 
-                    <Card
-                        key={film.filmId}
+                {movies.map((film: Movie) =>
+                <Link to={`${film.filmId}`} key={film.filmId}>
+                     <Card
                         hoverable
-                        style={{ width: 240 }}
-                        cover={<img alt="poster" src={film.posterUrl}/>}
+                        cover={
+                            <img
+                                alt="poster"
+                                src={film.posterUrl}
+                            />
+                        }
                     >
-                        <Meta title={film.nameRu} description={film.year}/>
-                        <Rate allowHalf defaultValue={+film.rating} />
+                        <Meta
+                            title={film.nameRu}
+                            description={film.year}
+                        />
+                        <Rate
+                            allowHalf
+                            defaultValue={+film.rating}
+                        />
                     </Card>
+                </Link>
+                   
                 )}
             </div>
-            <Pagination defaultCurrent={1} total={50}/>
+            <Pagination
+                pageSize={movies.length}
+                total={movies.length * pageCount}
+                showSizeChanger={false}
+                onChange={handleChange}
+            />
         </div>
-    )
+    );
 }

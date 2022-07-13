@@ -1,19 +1,11 @@
-import React from 'react';
-import { PageHeader } from 'antd';
-import { AmazonOutlined } from '@ant-design/icons';
+import React, { FC } from 'react';
 import 'antd/dist/antd.min.css';
 import { MovieList } from '../components/MovieList';
 
-export const MainPage: React.FC = () => {
+export const MainPage: FC = () => {
     return (
-        <div>
-            <PageHeader
-                className="site-page-header"
-                onBack={() => null}
-                title="Список фильмов"
-                backIcon={<AmazonOutlined />}
-            />
+        <main className='main'>
             <MovieList />
-        </div>
-    )
+        </main>
+    );
 }

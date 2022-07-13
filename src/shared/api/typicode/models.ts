@@ -10,7 +10,6 @@ export type Movie = {
     ratingVoteCount: number;
     posterUrl: string;
     posterUrlPreview: string;
-    ratingChange: null;
 }
 
 export type Country = {

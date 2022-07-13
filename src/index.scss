@@ -5,10 +5,17 @@ body {
   background: linear-gradient(to right, #F27121, #E94057, #8A2387);
 }
 
+.main {
+  position: relative;
+}
+
 .site-page-header.ant-page-header-ghost {
   background-color: #FFF5EE;
   border: 1px solid rgb(186, 193, 203);
   margin-bottom: 10px;
+  position: sticky;
+  z-index: 1;
+  top: 0;
 }
 
 .ant-page-header-heading-left
@@ -26,13 +33,22 @@ body {
   margin-bottom: 10px;
 }
 
-.main {
+.ant-card {
+  width: 240px;
+}
+
+.ant-image {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.main-list {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.main
+.main-list
 .ant-pagination {
   margin: 10px;
 }
@@ -42,4 +58,35 @@ body {
   display: flex;
   justify-content: center;
   justify-items: center;
+}
+
+.movie-about {
+  display: flex;
+  justify-content: center;
+
+  &__info {
+    display: flex;
+  }
+
+  &__text {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.movie-about__card
+.ant-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-about__card
+.ant-card {
+  width: 1000px;
+}
+
+.site-card-border-less-wrapper {
+  padding: 30px;
+  background: #ececec;
 }
