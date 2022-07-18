@@ -15,7 +15,7 @@ export const MovieSelect: FC<IFilter> = (filter: IFilter) => {
             optionFilterProp="children"
             onChange={updateData}
         >
-        {genres.map((item: IGenre) => 
+        {genres?.map((item: IGenre) => 
             <Option
                 key={item.id}
                 value={item.id}

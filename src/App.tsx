@@ -23,11 +23,17 @@ const App: FC = () => {
   const [selectGenre, setSelectGenre] = useState<number>();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
-  const onSearch = (value: string) => value ? setSearchText(value) : null;
   const toggleShow = () => setIsShowModal(!isShowModal);
+  const onSearch = (value: string) => {
+    if(value) {
+      setSearchText(value)
+      setGenre(0);
+    }
+  };
   const toggleAccept = () => {
     setIsShowModal(!isShowModal);
     setGenre(selectGenre);
+    setSearchText('');
   }
   const updateData = (value: number) => setSelectGenre(value);
   
@@ -49,13 +55,15 @@ const App: FC = () => {
         />
         <Route path=":id" element={<AboutMoviePage />} />
       </Routes>
-
-      <ModalFilter
-        isShowModal={isShowModal}
-        toggleShow={toggleShow}
-        toggleAccept={toggleAccept}
-        updateData={updateData}
-      />
+      
+      {isShowModal &&
+        <ModalFilter
+          isShowModal={isShowModal}
+          toggleShow={toggleShow}
+          toggleAccept={toggleAccept}
+          updateData={updateData}
+        />
+      }
     </Fragment>
   );
 }

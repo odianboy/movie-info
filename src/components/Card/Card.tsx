@@ -26,7 +26,7 @@ export const MovieCard: FC<IMovie> = (movie: IMovie) => {
             }
         >
             <Meta
-                title={nameRu}
+                title={nameRu ?? 'Название отсутствует'}
                 description={year}
             />
             <Rate

@@ -3,7 +3,6 @@ import React, {
     useEffect,
     FC
 } from 'react';
-import axios from 'axios';
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +10,11 @@ import { MovieCard } from '../Card/Card';
 import { ISearch } from '../../types/ISearch';
 import { IMovie } from '../../types/IMovie';
 import { generationKey } from '../../helpers/generationKey/generationKey';
-import { API_KEY, API_URL } from '../../constants/api';
+import { API_URL } from '../../constants/api';
 import { RoutesEnum } from '../../constants/routes';
+import { getData } from '../../services/getData';
+
+import styles from './List.module.scss'
 
 export const List: FC<ISearch> = (params: ISearch) => {
     const { search, genre } = params;
@@ -20,84 +22,71 @@ export const List: FC<ISearch> = (params: ISearch) => {
     const [page, setPage] = useState<number>(1);
     const [pageCount, setPageCount] = useState<number>(1);
 
-    const getMovies = () => {
-        axios.get(`${API_URL}${RoutesEnum.Top}`, {
-            headers: {
-                'X-API-KEY': API_KEY,
-            },
-            params: {
-                page: page,
-            }
-        })
-        .then(res => {
-            console.log('Запрос для списка топ фильмов');
-            const data = res.data.films;
-            const countPage = res.data.pagesCount;
-
-            setMovie(data);
-            setPageCount(countPage);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
-
-    const getMovieSearch = () => {
-        axios.get(`${API_URL}${RoutesEnum.Search}`, {
-            headers: {
-                'X-API-KEY': API_KEY,
-            },
-            params: {
-                keyword: search,
-                page: page,
-            }
-        })
-        .then(res => {
-            console.log('Запрос для списка поиска фильма');
-            const films = res.data.films;
-            const pageCount = res.data.pagesCount;
-
-            setMovie(films);
-            setPageCount(pageCount);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
-
-    const getMoviesFilter = () => {
-        axios.get(`${API_URL}${RoutesEnum.Filter}`, {
-            headers: {
-                'X-API-KEY': API_KEY,
-            },
-            params: {
-                genres: genre,
-                page: page,
-            }
-        })
-        .then(res => {
-            console.log('Запрос для списка фильмов по фильтру');
-            const movies = res.data.items;
-            const pageCount = res.data.totalPages;
-
-            setMovie(movies);
-            setPageCount(pageCount);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
-
     useEffect(() => {
-        getMovieSearch()
+        if(search) {
+            getData(
+                API_URL,
+                RoutesEnum.Search,
+                {keyword: search}
+            )
+            .then(res => {
+                console.log('поиск', search);
+                
+                const films = res.data.films;
+                const pageCount = res.data.pagesCount;
+    
+                setMovie(films);
+                setPageCount(pageCount);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
     }, [search])
 
     useEffect(() => {
-        getMoviesFilter()
-    }, [genre])
+        if(genre) {
+            getData(
+                API_URL,
+                RoutesEnum.Filter, {
+                    genres: genre,
+                    page: page,
+                }
+            )
+            .then(res => {
+                console.log('фильтр');
+                const movies = res.data.items;
+                const pageCount = res.data.totalPages;
+    
+                setMovie(movies);
+                setPageCount(pageCount);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+        
+    }, [genre, page])
 
     useEffect(() => {
-        getMovies();
+        if(!genre && !search) {
+            getData(
+                API_URL,
+                RoutesEnum.Top,
+                {page: page}
+            )
+            .then(res => {
+                console.log('топ');
+                const data = res.data.films;
+                const countPage = res.data.pagesCount;
+
+                setMovie(data);
+                setPageCount(countPage);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
     }, [page]);
 
     const handleChange = (page: number) => {
@@ -105,8 +94,8 @@ export const List: FC<ISearch> = (params: ISearch) => {
     }
 
     return (
-        <section className='main-list'>
-            <article className='movie'>
+        <section className="main-list">
+            <article className="movie">
                 {movies.map((film: IMovie) =>
                     <Link
                         to={`${film.filmId ?? film.kinopoiskId}`}

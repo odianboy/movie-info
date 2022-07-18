@@ -23,16 +23,6 @@ body {
   font-size: 24px;
 }
 
-.movie {
-  text-align: center;
-  justify-items: center;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 1em;
-  margin-bottom: 10px;
-}
-
 .ant-card {
   width: 240px;
 }
@@ -45,6 +35,16 @@ body {
 .ant-image {
   width: 200px;
   margin-bottom: 20px;
+}
+
+.movie {
+  text-align: center;
+  justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 1em;
+  margin-bottom: 10px;
 }
 
 .main-list {
