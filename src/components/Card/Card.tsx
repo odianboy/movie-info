@@ -31,7 +31,7 @@ export const MovieCard: FC<IMovie> = (movie: IMovie) => {
             />
             <Rate
                 allowHalf
-                count={10}
+                count={5}
                 disabled={true}
                 defaultValue={+rating!}
             />
