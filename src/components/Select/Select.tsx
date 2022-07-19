@@ -15,14 +15,14 @@ export const MovieSelect: FC<IFilter> = (filter: IFilter) => {
             optionFilterProp="children"
             onChange={updateData}
         >
-        {genres?.map((item: IGenre) => 
-            <Option
-                key={item.id}
-                value={item.id}
-            >
-                {item.genre}
-            </Option>
-        )}
-    </Select>
+            {genres?.map((item: IGenre) => 
+                <Option
+                    key={item.id}
+                    value={item.id}
+                >
+                    {item.genre}
+                </Option>
+            )}
+        </Select>
     )
 }

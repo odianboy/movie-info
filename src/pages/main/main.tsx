@@ -3,12 +3,14 @@ import 'antd/dist/antd.min.css';
 import { List } from '../../components/List/List';
 import { ISearch } from '../../types/ISearch';
 
-export const MainPage: FC<ISearch> = (props: ISearch) => {
+export const MainPage: FC<ISearch> = (params: ISearch) => {
     return (
         <main className='main'>
             <List
-                search={props.search}
-                genre={props.genre}
+                search={params.search}
+                genre={params.genre}
+                typeFilm={params.typeFilm}
+                sortFilm={params.sortFilm}
             />
         </main>
     );

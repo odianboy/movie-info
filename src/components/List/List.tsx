@@ -15,7 +15,7 @@ import { RoutesEnum } from '../../constants/routes';
 import { getData } from '../../services/getData';
 
 export const List: FC<ISearch> = (params: ISearch) => {
-    const { search, genre } = params;
+    const { search, genre, typeFilm, sortFilm } = params;
     const [movies, setMovie] = useState<IMovie[]>([]);
     const [page, setPage] = useState<number>(1);
     const [pageCount, setPageCount] = useState<number>(1);
@@ -46,11 +46,13 @@ export const List: FC<ISearch> = (params: ISearch) => {
     }, [search, page])
 
     useEffect(() => {
-        if(genre) {
+        if(genre || typeFilm || sortFilm) {
             getData(
                 API_URL,
                 RoutesEnum.Filter, {
                     genres: genre,
+                    type: typeFilm,
+                    order: sortFilm,
                     page: page,
                 }
             )
@@ -67,10 +69,10 @@ export const List: FC<ISearch> = (params: ISearch) => {
             });
         }
         
-    }, [genre, page])
+    }, [genre, typeFilm, sortFilm, page])
 
     useEffect(() => {
-        if(!genre && !search) {
+        if(!genre && !search && !typeFilm && !sortFilm) {
             getData(
                 API_URL,
                 RoutesEnum.Top,
