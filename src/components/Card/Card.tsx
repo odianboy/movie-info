@@ -4,6 +4,7 @@ import {
     Rate,
 } from 'antd';
 import { IMovie } from '../../types/IMovie';
+import { getRate } from '../../helpers/getRate/getRate';
 
 export const MovieCard: FC<IMovie> = (movie: IMovie) => {
     const {
@@ -26,14 +27,14 @@ export const MovieCard: FC<IMovie> = (movie: IMovie) => {
             }
         >
             <Meta
-                title={nameRu ?? 'Название отсутствует'}
-                description={year}
+                title={nameRu ?? '-'}
+                description={year ?? '-'}
             />
             <Rate
                 allowHalf
                 count={5}
                 disabled={true}
-                defaultValue={+rating!}
+                defaultValue={getRate(Math.floor(+rating!))}
             />
         </Card>
     );

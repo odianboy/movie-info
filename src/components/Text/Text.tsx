@@ -9,7 +9,7 @@ export const Text: FC<IMovieInfo> = (props: IMovieInfo) => {
     return (
         <p>
             <strong>{title}</strong>
-            {info}
+            {info ??  '-'}
         </p>
     )
 }

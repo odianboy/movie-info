@@ -14,8 +14,6 @@ import { API_URL } from '../../constants/api';
 import { RoutesEnum } from '../../constants/routes';
 import { getData } from '../../services/getData';
 
-import styles from './List.module.scss'
-
 export const List: FC<ISearch> = (params: ISearch) => {
     const { search, genre } = params;
     const [movies, setMovie] = useState<IMovie[]>([]);
@@ -26,14 +24,17 @@ export const List: FC<ISearch> = (params: ISearch) => {
         if(search) {
             getData(
                 API_URL,
-                RoutesEnum.Search,
-                {keyword: search}
+                RoutesEnum.Filter,
+                {
+                    keyword: search,
+                    page: page
+                }
             )
             .then(res => {
                 console.log('поиск', search);
                 
-                const films = res.data.films;
-                const pageCount = res.data.pagesCount;
+                const films = res.data.items;
+                const pageCount = res.data.totalPages;
     
                 setMovie(films);
                 setPageCount(pageCount);
@@ -42,7 +43,7 @@ export const List: FC<ISearch> = (params: ISearch) => {
                 console.log(error);
             });
         }
-    }, [search])
+    }, [search, page])
 
     useEffect(() => {
         if(genre) {
@@ -96,7 +97,7 @@ export const List: FC<ISearch> = (params: ISearch) => {
     return (
         <section className="main-list">
             <article className="movie">
-                {movies.map((film: IMovie) =>
+                {movies?.map((film: IMovie) =>
                     <Link
                         to={`${film.filmId ?? film.kinopoiskId}`}
                         key={generationKey()}
@@ -114,8 +115,8 @@ export const List: FC<ISearch> = (params: ISearch) => {
                 )}
             </article>
             <Pagination
-                pageSize={movies.length}
-                total={movies.length * pageCount}
+                pageSize={movies?.length}
+                total={movies?.length * pageCount}
                 showSizeChanger={false}
                 onChange={handleChange}
             />
