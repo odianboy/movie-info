@@ -4,13 +4,15 @@ import { List } from '../../components/List/List';
 import { ISearch } from '../../types/ISearch';
 
 export const MainPage: FC<ISearch> = (params: ISearch) => {
+    const { search, genre, typeFilm, sortFilm, formValue } = params;
     return (
         <main className='main'>
             <List
-                search={params.search}
-                genre={params.genre}
-                typeFilm={params.typeFilm}
-                sortFilm={params.sortFilm}
+                search={search}
+                genre={genre}
+                typeFilm={typeFilm}
+                sortFilm={sortFilm}
+                formValue={formValue}
             />
         </main>
     );

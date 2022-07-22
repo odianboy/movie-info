@@ -47,7 +47,15 @@ body {
   margin-bottom: 10px;
 }
 
+.loader {
+  width: 100%;
+  position: fixed;
+  top: 400px;
+  z-index: 9999;
+}
+
 .main-list {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -98,4 +106,14 @@ body {
 
 .ant-select {
   width: 100%;
+}
+
+.movie-about__card
+.ant-breadcrumb {
+  margin-bottom: 10px;
+}
+
+.ant-carousel {
+  margin-bottom: 20px !important;
+  width: 300px !important;
 }

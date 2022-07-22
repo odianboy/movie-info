@@ -7,4 +7,5 @@ export interface IHeader {
     toggleAll: () => void;
     toggleShow: () => void;
     sortData: (value: string) => void;
+    showBadge: Boolean;
 }

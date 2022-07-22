@@ -6,7 +6,7 @@ export const getRate = (rate: number): number => {
 
     return fivePoints.includes(rate) ? 5 :
         fourPoints.includes(rate) ? 4 :
-        threePoints.includes(rate) ? 3 : 
-        twoPoints.includes(rate) ? 2 :
-        1
+            threePoints.includes(rate) ? 3 :
+                twoPoints.includes(rate) ? 2 :
+                    1
 }

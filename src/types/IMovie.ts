@@ -15,6 +15,7 @@ export interface IMovie {
     webUrl?: string;
     description?: string;
     kinopoiskId?: number;
+    loading?: boolean;
 }
 
 export interface ICountry  {
@@ -30,4 +31,8 @@ export interface IGenre {
 export interface IMovieInfo {
     title: string;
     info?: string | number | ReactElement[];
+}
+
+export interface IAbout {
+    movie: IMovie[];
 }

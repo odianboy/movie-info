@@ -11,41 +11,48 @@ import {
 
 import './App.scss';
 
-import { AboutMoviePage } from './pages/about-movie/about-movie';
-import { MainPage } from './pages/main/main';
 import { ModalFilter } from './components/Modal-filter/ModalFilter';
 import { Header } from './components/Header/Header';
+import { MainPage } from './pages/Main/Main';
+import { AboutMoviePage } from './pages/About-movie/About-movie';
 
 const App: FC = () => {
-
   const [searchText, setSearchText] = useState<string>('');
-  const [genre, setGenre] = useState<number>();
-  const [sortFilm, setSortFilm] = useState<string>('');
-  const [typeFilm, setTypeFilm] = useState<string>('');
-  const [selectGenre, setSelectGenre] = useState<number>();
+  const [sortFilm, setSortFilm] = useState<string>('NUM_VOTE');
+  const [typeFilm, setTypeFilm] = useState<string>('FILM');
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [formValue, setFormValue] = useState<FormData | null>(null);
+  const [showBadge, setShowBadge] = useState(false);
 
-  const toggleFilm = () => {setTypeFilm('FILM')}
-  const toggleSeriesTV = () => {setTypeFilm('TV_SERIES')}
-  const toggleSeriesMini = () => {setTypeFilm('MINI_SERIES')}
-  const toggleShowTV = () => {setTypeFilm('TV_SHOW')}
-  const toggleAll = () => {setTypeFilm('ALL')}
+  const toggleFilm = () => setTypeFilm('FILM');
+  const toggleSeriesTV = () => setTypeFilm('TV_SERIES');
+  const toggleSeriesMini = () => setTypeFilm('MINI_SERIES');
+  const toggleShowTV = () => setTypeFilm('TV_SHOW');
+  const toggleAll = () => setTypeFilm('ALL');
 
   const toggleShow = () => setIsShowModal(!isShowModal);
+
   const onSearch = (value: string) => {
-    if(value) {
-      setSearchText(value)
-      setGenre(0);
+    if (value) {
+      setSearchText(value);
+      setFormValue(null);
     }
-  };
+  }
+
   const toggleAccept = () => {
     setIsShowModal(!isShowModal);
-    setGenre(selectGenre);
-    setSearchText('');
   }
-  const updateData = (value: number) => setSelectGenre(value);
+
   const sortData = (value: string) => setSortFilm(value);
-  
+
+  const getFormValue = (value: {}) => {
+    setFormValue(value as FormData);
+    setSearchText('');
+    setShowBadge(true);
+  }
+
+  const resetShowBadge = () => setShowBadge(false);
+
   return (
     <Fragment>
       <Header
@@ -57,28 +64,30 @@ const App: FC = () => {
         toggleShowTV={toggleShowTV}
         toggleAll={toggleAll}
         sortData={sortData}
+        showBadge={showBadge}
       />
       <Outlet />
       <Routes>
         <Route
           path="/"
           element={<MainPage
-              search={searchText}
-              genre={genre}
-              typeFilm={typeFilm}
-              sortFilm={sortFilm}
-            />
+            search={searchText}
+            typeFilm={typeFilm}
+            sortFilm={sortFilm}
+            formValue={formValue}
+          />
           }
         />
         <Route path=":id" element={<AboutMoviePage />} />
       </Routes>
-      
-      {isShowModal &&
+
+      {
         <ModalFilter
           isShowModal={isShowModal}
           toggleShow={toggleShow}
           toggleAccept={toggleAccept}
-          updateData={updateData}
+          getFormValue={getFormValue}
+          resetShowBadge={resetShowBadge}
         />
       }
     </Fragment>

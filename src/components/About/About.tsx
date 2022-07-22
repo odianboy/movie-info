@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
-import { Card } from 'antd';
+import { Breadcrumb, Card } from 'antd';
+import { Link } from 'react-router-dom';
+
+import styles from './About.module.scss';
 
 import { Info } from '../Info/Info';
 import { IMovie } from '../../types/IMovie';
+import { Loader } from '../Loader/Loader';
 
 export const About: FC<IMovie> = (movie: IMovie) => {
     const {
@@ -16,20 +20,29 @@ export const About: FC<IMovie> = (movie: IMovie) => {
         webUrl,
         nameOriginal,
         nameRu,
-        description
+        description,
+        loading,
     } = movie;
 
     return (
         <section className="site-card-border-less-wrapper movie-about__card">
+            <Breadcrumb>
+                <Breadcrumb.Item>
+                    <Link to="/">На главную</Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>
             <Card
                 title={
-                    `${
-                        nameOriginal ?
-                        `${nameRu} (${nameOriginal})`:
+                    `${nameOriginal ?
+                        `${nameRu} (${nameOriginal})` :
                         nameRu
                     }`
                 }
-            >
+            >{loading &&
+                <div className={styles.aboutLoader}>
+                    <Loader />
+                </div>
+                }
                 <Info
                     posterUrl={posterUrl}
                     year={year}

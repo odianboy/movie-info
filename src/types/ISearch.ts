@@ -3,4 +3,10 @@ export interface ISearch {
     genre?: number;
     typeFilm?: string;
     sortFilm?: string;
+    formValue?: any
+}
+
+export interface FormData {
+    genre?: number;
+    yearFrom?: number;
 }

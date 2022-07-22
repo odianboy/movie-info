@@ -6,16 +6,16 @@ import { IGenre } from "../../types/IMovie";
 
 export const MovieSelect: FC<IFilter> = (filter: IFilter) => {
     const { Option } = Select;
-    const { genres, updateData } = filter;
+    const { genres, onChangeGenre } = filter;
 
     return (
         <Select
             showSearch
             placeholder="Выбрать по жанрам"
             optionFilterProp="children"
-            onChange={updateData}
+            onChange={onChangeGenre}
         >
-            {genres?.map((item: IGenre) => 
+            {genres?.map((item: IGenre) =>
                 <Option
                     key={item.id}
                     value={item.id}

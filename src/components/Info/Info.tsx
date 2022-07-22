@@ -6,7 +6,7 @@ import { ICountry, IGenre, IMovie } from '../../types/IMovie';
 import { getTimeFromMins } from '../../helpers/getTimeFromMins/getTimeFromMins';
 
 export const Info: FC<IMovie> = (movie: IMovie) => {
-    const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState(false);
     const {
         posterUrl,
         year,
@@ -40,13 +40,13 @@ export const Info: FC<IMovie> = (movie: IMovie) => {
                 />
                 <Text
                     title='Жанр: '
-                    info={genres?.map((item: IGenre) => 
+                    info={genres?.map((item: IGenre) =>
                         <span key={item.genre}>{` ${item.genre}`}</span>
                     )}
                 />
                 <Text
                     title='Страна: '
-                    info={countries?.map((item: ICountry) => 
+                    info={countries?.map((item: ICountry) =>
                         <span key={item.country}>{` ${item.country}`}</span>
                     )}
                 />

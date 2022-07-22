@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
     PageHeader,
     Button,
     Input,
-    Select
+    Badge,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { AmazonOutlined } from '@ant-design/icons';
@@ -11,7 +11,6 @@ import { AmazonOutlined } from '@ant-design/icons';
 import { IHeader } from "../../types/IHeader";
 import { generationKey } from "../../helpers/generationKey/generationKey";
 import { ButtonNavbar } from "../Button-navbar/ButtonNavbar";
-import { ISortMovie } from "../../types/ISortMovie";
 import { SelectSort } from "../Select-sort/SelectSort";
 
 export const Header: FC<IHeader> = (params: IHeader) => {
@@ -23,16 +22,16 @@ export const Header: FC<IHeader> = (params: IHeader) => {
         toggleSeriesMini,
         toggleShowTV,
         toggleAll,
-        sortData
+        sortData,
+        showBadge
     } = params;
     const { Search } = Input;
-    const { Option } = Select;
     const navigate = useNavigate();
 
     return (
         <PageHeader
             className="site-page-header"
-            onBack={() => {navigate('/')}}
+            onBack={() => { navigate('/') }}
             title="Список фильмов"
             backIcon={<AmazonOutlined />}
             extra={[
@@ -71,14 +70,20 @@ export const Header: FC<IHeader> = (params: IHeader) => {
                     onSearch={onSearch}
                     allowClear
                 />,
-                <Button
+                <Badge
+                    dot={!!showBadge}
                     key={generationKey()}
-                    type="primary"
-                    onClick={toggleShow}
                 >
-                    Фильтры
-                </Button>]
+                    
+                    <Button
+                        type="primary"
+                        onClick={toggleShow}
+                    >
+                        Фильтры
+                    </Button>
+                </Badge>]
+
             }
-         />
+        />
     )
 }
