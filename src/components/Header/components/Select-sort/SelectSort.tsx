@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 import React, { FC } from 'react';
-import { generationKey } from '../../helpers/generationKey/generationKey';
-import { ISortMovie } from '../../types/ISortMovie';
+import { generationKey } from '../../../../helpers/generationKey/generationKey';
+import { ISortMovie } from '../../../../types/IHeader';
 
 export const SelectSort: FC<ISortMovie> = (props: ISortMovie) => {
     const { sortData } = props;

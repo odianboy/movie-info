@@ -3,14 +3,19 @@ import {
     Button,
     DatePicker,
     Form,
-    InputNumber,
+    InputNumber
 } from 'antd';
-import { MovieSelect } from '../Select/Select';
-import { getData } from '../../services/getData';
-import { RoutesEnum } from '../../constants/routes';
-import { API_URL } from '../../constants/api';
-import { IFilter, IModalFilter } from '../../types/IFilter';
+
+import { MovieSelect } from './components/Select/Select';
+
+import { getData } from '../../../../services/getData';
+import { RoutesEnum } from '../../../../constants/routes';
+import { API_URL } from '../../../../constants/api';
+import { IFilter, IModalFilter } from '../../../../types/IFilter';
+import { IFormData } from '../../../../types/IHeader';
+
 import styles from './ModalForm.module.scss'
+
 
 export const ModalForm: FC<IModalFilter> = (props: IModalFilter) => {
     const { getFormValue, resetShowBadge } = props;
@@ -32,11 +37,12 @@ export const ModalForm: FC<IModalFilter> = (props: IModalFilter) => {
             });
     }, [])
 
-    const onFinish = (value: any) => getFormValue(value);
+    const onFinish = (value: IFormData) => getFormValue(value);
     const onReset = () => {
         form.resetFields();
-        getFormValue({})
-        resetShowBadge()
+
+        getFormValue(form.getFieldsValue());
+        resetShowBadge();
     };
 
     const onChangeGenre = (value: number) => {
@@ -49,7 +55,7 @@ export const ModalForm: FC<IModalFilter> = (props: IModalFilter) => {
             .some((field) => field.errors.length > 0);
 
         setDisabledSave(hasErrors);
-    };
+    }
 
     return (
         <Form

@@ -7,7 +7,5 @@ import styles from './Loader.module.scss';
 export const Loader: FC = () => {
     const antIcon = <LoadingOutlined className={styles.loader} spin />;
 
-    return (
-        <Spin indicator={antIcon} />
-    );
+    return <Spin indicator={antIcon} />
 }

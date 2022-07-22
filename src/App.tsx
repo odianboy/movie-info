@@ -15,14 +15,15 @@ import { ModalFilter } from './components/Modal-filter/ModalFilter';
 import { Header } from './components/Header/Header';
 import { MainPage } from './pages/Main/Main';
 import { AboutMoviePage } from './pages/About-movie/About-movie';
+import { IFormData } from './types/IHeader';
 
 const App: FC = () => {
-  const [searchText, setSearchText] = useState<string>('');
-  const [sortFilm, setSortFilm] = useState<string>('NUM_VOTE');
-  const [typeFilm, setTypeFilm] = useState<string>('FILM');
-  const [isShowModal, setIsShowModal] = useState<boolean>(false);
-  const [formValue, setFormValue] = useState<FormData | null>(null);
+  const [searchText, setSearchText] = useState('');
+  const [sortFilm, setSortFilm] = useState('NUM_VOTE');
+  const [typeFilm, setTypeFilm] = useState('FILM');
+  const [isShowModal, setIsShowModal] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
+  const [formValue, setFormValue] = useState<IFormData>();
 
   const toggleFilm = () => setTypeFilm('FILM');
   const toggleSeriesTV = () => setTypeFilm('TV_SERIES');
@@ -35,7 +36,7 @@ const App: FC = () => {
   const onSearch = (value: string) => {
     if (value) {
       setSearchText(value);
-      setFormValue(null);
+      setFormValue({});
     }
   }
 
@@ -45,8 +46,8 @@ const App: FC = () => {
 
   const sortData = (value: string) => setSortFilm(value);
 
-  const getFormValue = (value: {}) => {
-    setFormValue(value as FormData);
+  const getFormValue = (value: IFormData) => {
+    setFormValue(value);
     setSearchText('');
     setShowBadge(true);
   }

@@ -28,7 +28,7 @@ body {
 }
 
 .ant-card-cover
-.card-img {
+.poster {
   height: 350px;
 }
 
@@ -47,21 +47,7 @@ body {
   margin-bottom: 10px;
 }
 
-.loader {
-  width: 100%;
-  position: fixed;
-  top: 400px;
-  z-index: 9999;
-}
-
-.main-list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.main-list
+.main
 .ant-pagination {
   margin: 10px;
 }
@@ -73,28 +59,13 @@ body {
   justify-items: center;
 }
 
-.movie-about {
-  display: flex;
-  justify-content: center;
-
-  &__info {
-    display: flex;
-  }
-
-  &__text {
-    margin-left: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-.movie-about__card
+.about-card
 .ant-card-body {
   display: flex;
   flex-direction: column;
 }
 
-.movie-about__card
+.about-card
 .ant-card {
   width: 1000px;
 }
@@ -108,12 +79,7 @@ body {
   width: 100%;
 }
 
-.movie-about__card
+.about-card
 .ant-breadcrumb {
   margin-bottom: 10px;
-}
-
-.ant-carousel {
-  margin-bottom: 20px !important;
-  width: 300px !important;
 }

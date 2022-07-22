@@ -1,32 +1,32 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
     PageHeader,
     Button,
     Input,
     Badge,
 } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { AmazonOutlined } from '@ant-design/icons';
 
-import { IHeader } from "../../types/IHeader";
+import { IHeader, INavbar } from "../../types/IHeader";
+import { ButtonNavbar } from "./components/Button-navbar/ButtonNavbar";
+import { SelectSort } from "./components/Select-sort/SelectSort";
+
 import { generationKey } from "../../helpers/generationKey/generationKey";
-import { ButtonNavbar } from "../Button-navbar/ButtonNavbar";
-import { SelectSort } from "../Select-sort/SelectSort";
+
 
 export const Header: FC<IHeader> = (params: IHeader) => {
-    const {
-        onSearch,
-        toggleShow,
-        toggleFilm,
-        toggleSeriesTV,
-        toggleSeriesMini,
-        toggleShowTV,
-        toggleAll,
-        sortData,
-        showBadge
-    } = params;
-    const { Search } = Input;
     const navigate = useNavigate();
+
+    const { Search } = Input;
+
+    const buttonNavbar = [
+        { title: 'Все', toggle: params.toggleAll },
+        { title: 'Фильмы', toggle: params.toggleFilm },
+        { title: 'ТВ Сериалы', toggle: params.toggleSeriesTV },
+        { title: 'Мини Сериалы', toggle: params.toggleSeriesMini },
+        { title: 'ТВ Шоу', toggle: params.toggleShowTV },
+    ];
 
     return (
         <PageHeader
@@ -35,54 +35,36 @@ export const Header: FC<IHeader> = (params: IHeader) => {
             title="Список фильмов"
             backIcon={<AmazonOutlined />}
             extra={[
-                <ButtonNavbar
-                    key={generationKey()}
-                    title="Все"
-                    toggle={toggleAll}
-                />,
-                <ButtonNavbar
-                    key={generationKey()}
-                    title="Фильмы"
-                    toggle={toggleFilm}
-                />,
-                <ButtonNavbar
-                    key={generationKey()}
-                    title="ТВ Сериалы"
-                    toggle={toggleSeriesTV}
-                />,
-                <ButtonNavbar
-                    key={generationKey()}
-                    title="Мини Сериалы"
-                    toggle={toggleSeriesMini}
-                />,
-                <ButtonNavbar
-                    key={generationKey()}
-                    title="ТВ Шоу"
-                    toggle={toggleShowTV}
-                />,
+                buttonNavbar?.map((item: INavbar) => {
+                    return (
+                        <ButtonNavbar
+                            key={generationKey()}
+                            title={item.title}
+                            toggle={item.toggle}
+                        />
+                    )
+                }),
                 <SelectSort
                     key={generationKey()}
-                    sortData={sortData}
+                    sortData={params.sortData}
                 />,
                 <Search
                     key={generationKey()}
                     placeholder="Название фильма..."
-                    onSearch={onSearch}
+                    onSearch={params.onSearch}
                     allowClear
                 />,
                 <Badge
-                    dot={!!showBadge}
+                    dot={!!params.showBadge}
                     key={generationKey()}
                 >
-                    
                     <Button
                         type="primary"
-                        onClick={toggleShow}
+                        onClick={params.toggleShow}
                     >
                         Фильтры
                     </Button>
                 </Badge>]
-
             }
         />
     )

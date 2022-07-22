@@ -12,8 +12,11 @@ import { API_URL } from '../../constants/api';
 import { RoutesEnum } from '../../constants/routes';
 import { getData } from "../../services/getData";
 
+import styles from './About-movie.module.scss';
+
 export const AboutMoviePage: FC = () => {
     const params = useParams();
+
     const [movie, setMovie] = useState({} as IMovie);
     const [loading, setLoading] = useState(false);
 
@@ -21,8 +24,7 @@ export const AboutMoviePage: FC = () => {
         setLoading(true);
         getData(API_URL, `${RoutesEnum.Film}${params.id}`)
             .then(res => {
-                const film = res.data;
-                setMovie(film);
+                setMovie(res.data);
                 setLoading(false);
             })
             .catch(err => {
@@ -35,19 +37,9 @@ export const AboutMoviePage: FC = () => {
     }, [])
 
     return (
-        <article className='movie-about'>
+        <article className={styles.movieAbout}>
             <About
-                nameOriginal={movie.nameOriginal}
-                nameRu={movie.nameRu}
-                year={movie.year}
-                ratingKinopoisk={movie.ratingKinopoisk}
-                slogan={movie.slogan}
-                genres={movie.genres}
-                countries={movie.countries}
-                filmLength={movie.filmLength}
-                webUrl={movie.webUrl}
-                posterUrl={movie.posterUrl}
-                description={movie.description}
+                movie={{ ...movie }}
                 loading={loading}
             />
         </article>

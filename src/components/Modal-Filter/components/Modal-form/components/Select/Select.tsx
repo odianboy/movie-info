@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Select } from 'antd';
 
-import { IFilter } from "../../types/IFilter";
-import { IGenre } from "../../types/IMovie";
+import { IFilter } from "../../../../../../types/IFilter";
+import { IGenre } from "../../../../../../types/IMovie";
 
 export const MovieSelect: FC<IFilter> = (filter: IFilter) => {
     const { Option } = Select;

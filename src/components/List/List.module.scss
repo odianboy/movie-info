@@ -1,0 +1,13 @@
+.loader {
+    width: 100%;
+    position: fixed;
+    top: 400px;
+    z-index: 9999;
+}
+
+.movieList {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

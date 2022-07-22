@@ -3,8 +3,8 @@ import {
     Card,
     Rate,
 } from 'antd';
-import { IMovie } from '../../types/IMovie';
-import { getRate } from '../../helpers/getRate/getRate';
+import { IMovie } from '../../../../types/IMovie';
+import { getRate } from '../../../../helpers/getRate/getRate';
 
 export const MovieCard: FC<IMovie> = (movie: IMovie) => {
     const {
@@ -13,6 +13,7 @@ export const MovieCard: FC<IMovie> = (movie: IMovie) => {
         year,
         rating
     } = movie;
+    const infoAbsence = '-';
     const { Meta } = Card;
 
     return (
@@ -20,15 +21,15 @@ export const MovieCard: FC<IMovie> = (movie: IMovie) => {
             hoverable
             cover={
                 <img
-                    className="card-img"
+                    className="poster"
                     alt="poster"
                     src={posterUrl}
                 />
             }
         >
             <Meta
-                title={nameRu ?? '-'}
-                description={year ?? '-'}
+                title={nameRu ?? infoAbsence}
+                description={year ?? infoAbsence}
             />
             <Rate
                 allowHalf
