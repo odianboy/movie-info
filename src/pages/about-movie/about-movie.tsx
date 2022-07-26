@@ -19,7 +19,7 @@ export const AboutMoviePage: FC = () => {
 
     const [movie, setMovie] = useState({} as IMovie);
     const [loading, setLoading] = useState(false);
-
+    
     const getMovie = () => {
         setLoading(true);
         getData(API_URL, `${RoutesEnum.Film}${params.id}`)

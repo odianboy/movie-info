@@ -11,8 +11,10 @@ export interface IHeader {
 }
 
 export interface INavbar {
+    id?: number;
     title: string;
     toggle: () => void;
+    path?: string;
 }
 
 export interface ISearch {
@@ -21,6 +23,9 @@ export interface ISearch {
     typeFilm?: string;
     sortFilm?: string;
     formValue?: IFormData;
+    pathUrl?: string;
+    page?: number;
+    handleChangePagination?: (value: number) => void;
 }
 
 export interface IFormData {

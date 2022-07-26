@@ -14,7 +14,7 @@ import { API_URL } from '../../../../constants/api';
 import { IFilter, IModalFilter } from '../../../../types/IFilter';
 import { IFormData } from '../../../../types/IHeader';
 
-import styles from './ModalForm.module.scss'
+import styles from './ModalForm.module.scss';
 
 
 export const ModalForm: FC<IModalFilter> = (props: IModalFilter) => {
@@ -57,6 +57,13 @@ export const ModalForm: FC<IModalFilter> = (props: IModalFilter) => {
         setDisabledSave(hasErrors);
     }
 
+    const checkRating = (value: number) => {
+        if (!value || form.getFieldValue('ratingTo') > value) {
+            return Promise.resolve();
+        }
+        return Promise.reject(new Error('Минимальное значение рейтинга, не может превышать максимального!'));
+    };
+
     return (
         <Form
             form={form}
@@ -69,16 +76,14 @@ export const ModalForm: FC<IModalFilter> = (props: IModalFilter) => {
         >
             <Form.Item
                 label="Минимальный рейтинг:"
+                dependencies={['ratingTo']}
                 name='ratingFrom'
                 rules={[
-                    ({ getFieldValue }) => ({
+                    () => ({
                         validator(_, value) {
-                            if (!value || getFieldValue('ratingTo') > value) {
-                                return Promise.resolve();
-                            }
-                            return Promise.reject(new Error('Минимальное значение рейтинга, не может превышать максимального!'));
+                            return checkRating(value);
                         },
-                    })
+                    }),
                 ]}
             >
                 <InputNumber min={1} max={10} />

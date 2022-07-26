@@ -1,12 +1,10 @@
+@import 'antd/dist/antd.min.css';
+
 body {
   font-family: 'Roboto', "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(to right, #F27121, #E94057, #8A2387);
-}
-
-.main {
-  position: relative;
 }
 
 .site-page-header.ant-page-header-ghost {
@@ -37,17 +35,7 @@ body {
   margin-bottom: 20px;
 }
 
-.movie {
-  text-align: center;
-  justify-items: center;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 1em;
-  margin-bottom: 10px;
-}
-
-.main
+#root
 .ant-pagination {
   margin: 10px;
 }
